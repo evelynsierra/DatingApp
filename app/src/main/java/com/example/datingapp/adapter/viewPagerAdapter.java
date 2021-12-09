@@ -27,17 +27,20 @@ public class viewPagerAdapter extends FragmentStatePagerAdapter {
     @org.jetbrains.annotations.NotNull
     @Override
     public Fragment getItem(int position) {
+
         return fragmentList.get(position);
     }
 
     @Override
     public int getCount() {
+
         return fragmentList.size();
     }
     @Nullable
     @Override
     public CharSequence getPageTitle(int position){
-        return super.getPageTitle(position);
+
+        return mTitleList.get(position);
     }
 
 }

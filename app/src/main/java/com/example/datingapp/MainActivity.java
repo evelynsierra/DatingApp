@@ -26,5 +26,8 @@ public class MainActivity extends AppCompatActivity {
         adapter = new viewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new SignInFragment(), "Sign In"); //add fragment Sign in
         adapter.addFragment(new SignUpFragment(), "Sign Up"); //add fragment Sign Up
+
+        mViewPager.setAdapter(adapter);
+        mTabs.setupWithViewPager(mViewPager);
     }
 }

@@ -13,6 +13,8 @@
         android:layout_height="50dp"
         android:background="#00FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
+        app:tabTextColor="@android:color/darker_gray"
+        app:tabSelectedTextColor="@android:color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
