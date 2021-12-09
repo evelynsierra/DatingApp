@@ -6,7 +6,9 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.widget.ImageView;
 
 public class SplashScreenActivity extends AppCompatActivity {
@@ -35,5 +37,23 @@ public class SplashScreenActivity extends AppCompatActivity {
             }
         });
         mAnimatorSet.start();
+
+        //akan membuka aplikasi setelah logo beranimasi 4 detik
+        new CountDownTimer(4000,1000){
+
+            @Override
+            public void onTick(long millisUntilFinished) {
+
+            }
+
+            @Override
+            public void onFinish() {
+                Intent intent = new Intent(SplashScreenActivity.this, MainActivity.class); //dari splashscreen menuju mainactivity
+                startActivity(intent);
+                finish();
+            }
+        }.start();
+
+
     }
 }
