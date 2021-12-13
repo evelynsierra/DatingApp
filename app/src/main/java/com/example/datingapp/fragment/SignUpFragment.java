@@ -86,6 +86,7 @@ public class SignUpFragment extends Fragment {
                     @Override
                     public void onComplete(@NonNull @NotNull Task<AuthResult> task) {
                         if(task.isSuccessful()) { //jika akun berhasil dibuat
+                            Toast.makeText(getContext(), "Account Created",Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(getContext(), HomeActivity.class); //akan diarahkan ke HomeActivity -> mengarah ke halaman home
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(intent);

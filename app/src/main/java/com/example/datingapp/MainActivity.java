@@ -6,6 +6,7 @@ import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -13,11 +14,13 @@ import com.example.datingapp.adapter.viewPagerAdapter;
 import com.example.datingapp.fragment.SignInFragment;
 import com.example.datingapp.fragment.SignUpFragment;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
     private ViewPager mViewPager;
     private TabLayout mTabs;
     private viewPagerAdapter adapter;
+    private FirebaseAuth mAuth;
   //  private Context context;
 
     @Override
@@ -28,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
         mViewPager = findViewById(R.id.viewPager);
         mTabs = findViewById(R.id.tabLayout);
+        mAuth = FirebaseAuth.getInstance();
 
         adapter = new viewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new SignInFragment(), "Sign In"); //add fragment Sign in
@@ -61,5 +65,15 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if(mAuth.getCurrentUser() != null) {
+            Intent intent = new Intent(MainActivity.this, HomeActivity.class); //jika user telah login, maka langsung menuju ke halaman home
+            startActivity(intent); //jalankan activity
+            finish();
+        }
     }
 }
