@@ -93,6 +93,7 @@ public class SignInFragment extends Fragment {
                                  Intent intent = new Intent(getContext(), HomeActivity.class);
                                  intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent. FLAG_ACTIVITY_CLEAR_TASK);
                                  startActivity(intent);
+                                 getActivity().finish();
 
                              }else {
                                  mDialog.dismiss();

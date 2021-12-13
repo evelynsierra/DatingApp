@@ -90,7 +90,7 @@ public class SignUpFragment extends Fragment {
                             Intent intent = new Intent(getContext(), HomeActivity.class); //akan diarahkan ke HomeActivity -> mengarah ke halaman home
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(intent);
-                            //getContext().finish();
+                            getActivity().finish();
                         } else {
                             Toast.makeText(getContext(), ""+task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
