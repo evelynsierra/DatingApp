@@ -37,6 +37,13 @@ public class HomeActivity extends AppCompatActivity {
         mViewPager.setAdapter(adapter);
         mHomeTab.setupWithViewPager(mViewPager);
 
+        //set image
+        mHomeTab.getTabAt(0).setIcon(R.drawable.profile);
+        mHomeTab.getTabAt(1).setIcon(R.drawable.discover);
+        mHomeTab.getTabAt(2).setIcon(R.drawable.chat);
+
+        mHomeTab.selectTab(mHomeTab.getTabAt(1)); //ambil yang pertama yaitu discover
+
         mHomeTab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {

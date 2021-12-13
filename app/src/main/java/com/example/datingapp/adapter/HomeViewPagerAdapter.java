@@ -43,6 +43,6 @@ public class HomeViewPagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public CharSequence getPageTitle(int position){
 
-        return mTitleList.get(position);
+        return null;
     }
 }

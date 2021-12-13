@@ -9,4 +9,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="colorGolden">#BC9A5F</color>
     <color name="colorWhite">#FFFFFF</color>
+    <color name="chipColor">#23374f</color>
+
 </resources>
