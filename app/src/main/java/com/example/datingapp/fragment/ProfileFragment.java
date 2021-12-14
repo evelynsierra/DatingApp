@@ -1,7 +1,12 @@
 package com.example.datingapp.fragment;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.KeyEvent;
@@ -11,15 +16,21 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.datingapp.R;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+
+import static android.app.Activity.RESULT_OK;
 
 ///**
 // * A simple {@link Fragment} subclass.
@@ -27,6 +38,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 // * create an instance of this fragment.
 // */
 public class ProfileFragment extends Fragment {
+    private static final int RESULT_LOAD_IMG = 1212;
     CircleImageView mImg;
     EditText mHobby;
     EditText mLang;
@@ -35,6 +47,7 @@ public class ProfileFragment extends Fragment {
     ChipGroup mLangChipGroup;
     List<String> mChipList;
     List<String> mLangList;
+    Uri url=null;
 
 
 //    // TODO: Rename parameter arguments, choose names that match
@@ -94,6 +107,16 @@ public class ProfileFragment extends Fragment {
 
         displayChipData(mChipList);
 
+        //display image
+        mImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+                photoPickerIntent.setType("image/*");
+                startActivityForResult(photoPickerIntent, RESULT_LOAD_IMG);
+            }
+        });
+
         mHobby.setOnEditorActionListener(new TextView.OnEditorActionListener() { //saat mengetikkan hobby langsung muncul di chiplist
             @Override
             public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
@@ -120,6 +143,18 @@ public class ProfileFragment extends Fragment {
         });
 
         return view;
+    }
+
+    //menampilkan foto
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (resultCode == RESULT_OK) {
+            final Uri imageUri = data.getData();
+            url =imageUri;
+            Glide.with(getContext()).load(imageUri).into(mImg); //pakai library Glide agar lebih mudah loading display image atau video
+
+        }else {
+            Toast.makeText(getContext(), "You haven't picked Image",Toast.LENGTH_LONG).show();
+        }
     }
 
     // display chip data
