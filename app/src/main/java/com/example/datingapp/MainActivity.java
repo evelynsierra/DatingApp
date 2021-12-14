@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
                 if(tab.getPosition() == 0) {
                     findViewById(R.id.layout_main).setBackground(getDrawable(R.drawable.layout_bg)); //saat menekan sign in, muncul layout_bg
                     getWindow().setStatusBarColor(getColor(R.color.colorPrimary));
+
                 }
                 if(tab.getPosition() == 1) {
                     findViewById(R.id.layout_main).setBackground(getDrawable(R.drawable.signup_bg)); //saat menekan sign up, muncul signup_bg

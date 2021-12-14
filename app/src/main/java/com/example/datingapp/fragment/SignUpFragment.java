@@ -19,8 +19,12 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.jetbrains.annotations.NotNull;
+
+import java.util.HashMap;
+import java.util.Map;
 
 ///**
 // * A simple {@link Fragment} subclass.
@@ -41,6 +45,7 @@ public class SignUpFragment extends Fragment {
     private EditText mEmail;
     private EditText mPassword;
     private Button mSignUpBtn;
+    private FirebaseFirestore mStore;
 
     public SignUpFragment() {
         // Required empty public constructor
@@ -76,22 +81,34 @@ public class SignUpFragment extends Fragment {
         mEmail = view.findViewById(R.id.signup_email);
         mPassword = view.findViewById(R.id.signup_password);
         mSignUpBtn = view.findViewById(R.id.signup_btn);
+        mStore = FirebaseFirestore.getInstance();
 
         mSignUpBtn.setOnClickListener(new View.OnClickListener() { // saat diklik, tulis apa yang akan terjadi
             @Override
             public void onClick(View v) {
-                String email = mEmail.getText().toString();
-                String password = mPassword.getText().toString();
-                mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                String email=mEmail.getText().toString();
+                String password=mPassword.getText().toString();
+                mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
-                    public void onComplete(@NonNull @NotNull Task<AuthResult> task) {
-                        if(task.isSuccessful()) { //jika akun berhasil dibuat
-                            Toast.makeText(getContext(), "Account Created",Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(getContext(), HomeActivity.class); //akan diarahkan ke HomeActivity -> mengarah ke halaman home
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            startActivity(intent);
-                            getActivity().finish();
-                        } else {
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(task.isSuccessful()){
+                            Map<String,Object> map = new HashMap<>();
+                            map.put("name",mName.getText().toString());
+                            mStore.collection("Users").document(mAuth.getCurrentUser().getUid())
+                                    .set(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if(task.isSuccessful()){
+                                        Toast.makeText(getContext(), "Account Created", Toast.LENGTH_SHORT).show();
+                                        Intent intent=new Intent(getContext(), HomeActivity.class);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                        startActivity(intent);
+                                        getActivity().finish();
+                                    }
+                                }
+                            });
+
+                        }else{
                             Toast.makeText(getContext(), ""+task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }

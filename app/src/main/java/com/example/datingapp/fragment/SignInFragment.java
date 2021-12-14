@@ -31,6 +31,7 @@ public class SignInFragment extends Fragment {
     private Button mloginBtn;
     private FirebaseAuth mAuth;
     private ProgressDialog mDialog;
+
 //    // TODO: Rename parameter arguments, choose names that match
 //    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 //    private static final String ARG_PARAM1 = "param1";
@@ -81,28 +82,26 @@ public class SignInFragment extends Fragment {
             public void onClick(View v) {
                 String email = mEmail.getText().toString();
                 String password = mPassword.getText().toString();
-
-                if(!email.isEmpty() && !password.isEmpty()) { //jika tidak kosong maka boleh masuk
+                if(!email.isEmpty() && !password.isEmpty()){
                     mDialog.show();
                     mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
-                        public void onComplete(@NonNull @NotNull Task<AuthResult> task) {
-                             if(task.isSuccessful()) {
-                                 mDialog.dismiss();
-                                 Toast.makeText(getContext(),"Login Successful",Toast.LENGTH_SHORT).show();
-                                 Intent intent = new Intent(getContext(), HomeActivity.class);
-                                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent. FLAG_ACTIVITY_CLEAR_TASK);
-                                 startActivity(intent);
-                                 getActivity().finish();
-
-                             }else {
-                                 mDialog.dismiss();
-                                 Toast.makeText(getContext(),""+task.getException().getMessage(),Toast.LENGTH_SHORT).show();
-                             }
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if(task.isSuccessful()){
+                                mDialog.dismiss();;
+                                Toast.makeText(getContext(), "Login Successful", Toast.LENGTH_SHORT).show();
+                                Intent intent=new Intent(getContext(), HomeActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                startActivity(intent);
+                                getActivity().finish();
+                            }else{
+                                mDialog.dismiss();
+                                Toast.makeText(getContext(), ""+task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            }
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
-                        public void onFailure(@NonNull @NotNull Exception e) {
+                        public void onFailure(@NonNull Exception e) {
                             mDialog.dismiss();
                             e.printStackTrace();
                         }

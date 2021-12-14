@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.ProfileFragment"
-    android:background="@color/colorPrimary">
+    android:background="@color/colorPrimary"
+    tools:context=".fragment.ProfileFragment">
 
     <TextView
         android:id="@+id/textView2"
@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
         android:layout_marginLeft="40dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="48dp"
         android:text="Photos"
         android:textColor="@color/white"
         android:textSize="18sp"
@@ -52,11 +52,11 @@
         android:layout_marginLeft="40dp"
         android:layout_marginTop="16dp"
         android:ems="10"
-        android:imeOptions="actionGo"
         android:hint="eg. Coding"
+        android:imeOptions="actionGo"
+        android:inputType="textPersonName"
         android:textColor="@color/white"
         android:textColorHint="@android:color/darker_gray"
-        android:inputType="textPersonName"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
@@ -95,15 +95,15 @@
 
     <EditText
         android:id="@+id/pro_lang"
-        android:imeOptions="actionGo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
         android:layout_marginLeft="40dp"
         android:layout_marginTop="16dp"
         android:ems="10"
-        android:inputType="textPersonName"
         android:hint="eg. English"
+        android:imeOptions="actionGo"
+        android:inputType="textPersonName"
         android:textColor="@color/white"
         android:textColorHint="@android:color/darker_gray"
         app:layout_constraintStart_toStartOf="parent"
@@ -149,23 +149,45 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
         android:layout_marginLeft="40dp"
-        android:hint="eg. I am using DatingApp"
-        android:textColor="@color/white"
-        android:textColorHint="@android:color/darker_gray"
         android:layout_marginTop="16dp"
         android:ems="10"
         android:gravity="start|top"
+        android:hint="eg. I am using DatingApp"
         android:inputType="textMultiLine"
+        android:textColor="@color/white"
+        android:textColorHint="@android:color/darker_gray"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+    <Button
+        android:id="@+id/logout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:background="@drawable/login_btn_bg"
+        android:text="Log Out"
+        app:backgroundTint="#162737"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.275"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pro_desc"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/save_pro"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="68dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="80dp"
+        android:background="@drawable/login_btn_bg"
         android:text="Save"
+        app:backgroundTint="@color/colorGolden"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pro_desc" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/logout"
+        app:layout_constraintTop_toBottomOf="@+id/pro_desc"
+        app:layout_constraintVertical_bias="0.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>

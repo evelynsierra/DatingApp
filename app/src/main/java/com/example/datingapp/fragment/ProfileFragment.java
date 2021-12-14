@@ -4,9 +4,12 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import android.view.KeyEvent;
@@ -14,19 +17,34 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.datingapp.HomeActivity;
+import com.example.datingapp.MainActivity;
 import com.example.datingapp.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -47,7 +65,11 @@ public class ProfileFragment extends Fragment {
     ChipGroup mLangChipGroup;
     List<String> mChipList;
     List<String> mLangList;
+    Button mSaveProfile;
     Uri url=null;
+    private FirebaseAuth mAuth;
+    private FirebaseFirestore mStore;
+    private StorageReference mStorage;
 
 
 //    // TODO: Rename parameter arguments, choose names that match
@@ -102,8 +124,15 @@ public class ProfileFragment extends Fragment {
         mDesc = view.findViewById(R.id.pro_desc);
         mChipGroup = view.findViewById(R.id.chip_c);
         mLangChipGroup = view.findViewById(R.id.chip_lang);
+        mSaveProfile = view.findViewById(R.id.save_pro);
+        mAuth=FirebaseAuth.getInstance();
+        mStore=FirebaseFirestore.getInstance();
+        mStorage= FirebaseStorage.getInstance().getReference();
         mChipList = new ArrayList<>();
         mLangList = new ArrayList<>();
+
+        //ambil data profil
+        getProfileData();
 
         displayChipData(mChipList);
 
@@ -142,7 +171,101 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+        //logout
+        Button btn = view.findViewById(R.id.logout);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut(); //menekan sign out
+                startActivity(new Intent(getContext(), MainActivity.class));
+                getActivity().finish(); //selesaikan activity dengan kembali ke main activity
+            }
+        });
+
+        //save data
+        mSaveProfile.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
+            @Override
+            public void onClick(View v) {
+                Long tsLong = System.currentTimeMillis()/1000;
+                String ts = tsLong.toString();
+                if(url!=null){
+                    mStorage.child(ts+"/").putFile(url).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+//                        String downloadUrl = taskSnapshot.getStorage().getDownloadUrl().toString();
+//                        Log.i("TAG", "onSuccess: "+downloadUrl);
+                            Task<Uri> res = taskSnapshot.getStorage().getDownloadUrl();
+                            res.addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @RequiresApi(api = Build.VERSION_CODES.O)
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    String downloadUrl = uri.toString();
+                                    Map<String,Object> map=new HashMap<>();
+                                    map.put("hobby",String.join(",",mChipList));
+                                    map.put("lang",String.join(",",mLangList));
+                                    map.put("desc",mDesc.getText().toString());
+                                    map.put("img_url",downloadUrl);
+                                    mStore.collection("Users").document(mAuth.getCurrentUser().getUid())
+                                            .update(map)
+                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task) {
+                                                    if(task.isSuccessful()){
+                                                        Toast.makeText(getContext(), "Profile Updated", Toast.LENGTH_SHORT).show();
+                                                    }
+                                                }
+                                            });
+                                }
+                            });
+
+                        }
+                    });
+                }else{
+                    Map<String,Object> map=new HashMap<>();
+                    map.put("hobby",String.join(",",mChipList));
+                    map.put("lang",String.join(",",mLangList));
+                    map.put("desc",mDesc.getText().toString());
+                    mStore.collection("Users").document(mAuth.getCurrentUser().getUid())
+                            .update(map)
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if(task.isSuccessful()){
+                                        Toast.makeText(getContext(), "Profile Updated", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
+                }
+
+            }
+        });
+
         return view;
+    }
+
+    //mengambil data profil
+    private void getProfileData() {
+        mStore.collection("Users").document(mAuth.getCurrentUser().getUid())
+                .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if(task.isSuccessful()){
+                    String desc = task.getResult().getString("desc");
+                    String hobby = task.getResult().getString("hobby");
+                    String img_url = task.getResult().getString("img_url");
+                    String lang = task.getResult().getString("lang");
+                    mDesc.setText(desc);
+                    List<String> mList = Arrays.asList(hobby.split("\\s*,\\s*"));
+                    mChipList.addAll(mList);
+                    displayChipData(mChipList);
+                    List<String> cList = Arrays.asList(lang.split("\\s*,\\s*"));
+                    mLangList.addAll(cList);
+                    displayLangData(mLangList);
+                    Glide.with(getContext()).load(img_url).into(mImg);
+                }
+            }
+        });
     }
 
     //menampilkan foto
