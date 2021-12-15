@@ -40,7 +40,7 @@ public class DiscoverFragment extends Fragment {
     private SwipePlaceHolderView mSwipeView;
     private Context mContext;
     private FirebaseFirestore mStore;
-    private FirebaseAuth mAuth;
+    private FirebaseAuth   mAuth;
     List<Profile> mProfileList;
     TinderCard.SelectedListener selectedListener;
     String current_username="";
@@ -54,15 +54,6 @@ public class DiscoverFragment extends Fragment {
     }
 
 
-//    @Override
-//    public void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        if (getArguments() != null) {
-//            mParam1 = getArguments().getString(ARG_PARAM1);
-//            mParam2 = getArguments().getString(ARG_PARAM2);
-//        }
-//    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -70,7 +61,6 @@ public class DiscoverFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_discover, container, false);
         mSwipeView = view.findViewById(R.id.swipeView);
         mContext = getContext();
-
         mSwipeView.getBuilder()
                 .setDisplayViewCount(3)
                 .setSwipeDecor(new SwipeDecor()
@@ -96,11 +86,13 @@ public class DiscoverFragment extends Fragment {
 
                     }
                     for (Profile profile : mProfileList) {
-                        mSwipeView.addView(new TinderCard(mContext, profile, mSwipeView, selectedListener));
+                        mSwipeView.addView(new TinderCard(mContext, profile, mSwipeView,selectedListener));
                     }
                 }
             }
         });
+
+
         view.findViewById(R.id.rejectBtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -179,6 +171,7 @@ public class DiscoverFragment extends Fragment {
         };
 
         return view;
+
     }
 
     private void storeMatchInDatabase(final String docId,String name) {

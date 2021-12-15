@@ -20,7 +20,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class HomeActivity extends AppCompatActivity {
     private ViewPager mViewPager;
-    private TabLayout mHomeTab;
+    private TabLayout mHomeTabs;
     private HomeViewPagerAdapter adapter;
 
     @Override
@@ -28,23 +28,19 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         mViewPager = findViewById(R.id.home_view_pager);
-        mHomeTab = findViewById(R.id.home_tab);
-        adapter = new HomeViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new ProfileFragment(), "Profile"); //add fragment Profile
-        adapter.addFragment(new DiscoverFragment(), "Discover"); //add fragment Chat
-        adapter.addFragment(new ChatFragment(), "Chat"); //add fragment Chat
-
+        mHomeTabs = findViewById(R.id.home_tab);
+        adapter =new HomeViewPagerAdapter(getSupportFragmentManager());
+        adapter.addFragment(new ProfileFragment(),"Profile");
+        adapter.addFragment(new DiscoverFragment(),"Discover");
+        adapter.addFragment(new ChatFragment(),"Chat");
         mViewPager.setAdapter(adapter);
-        mHomeTab.setupWithViewPager(mViewPager);
+        mHomeTabs.setupWithViewPager(mViewPager);
+        mHomeTabs.getTabAt(0).setIcon(R.drawable.profile);
+        mHomeTabs.getTabAt(1).setIcon(R.drawable.discover);
+        mHomeTabs.getTabAt(2).setIcon(R.drawable.chat);
+        mHomeTabs.selectTab(mHomeTabs.getTabAt(1));
 
-        //set image
-        mHomeTab.getTabAt(0).setIcon(R.drawable.profile);
-        mHomeTab.getTabAt(1).setIcon(R.drawable.discover);
-        mHomeTab.getTabAt(2).setIcon(R.drawable.chat);
-
-        mHomeTab.selectTab(mHomeTab.getTabAt(1)); //ambil yang pertama yaitu discover
-
-        mHomeTab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        mHomeTabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
 
@@ -60,6 +56,9 @@ public class HomeActivity extends AppCompatActivity {
 
             }
         });
+
+
+
 
 
     }

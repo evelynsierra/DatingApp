@@ -28,56 +28,28 @@ import org.jetbrains.annotations.NotNull;
 public class SignInFragment extends Fragment {
     private EditText mEmail;
     private EditText mPassword;
-    private Button mloginBtn;
+    private Button mLoginBtn;
     private FirebaseAuth mAuth;
     private ProgressDialog mDialog;
 
-//    // TODO: Rename parameter arguments, choose names that match
-//    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-//    private static final String ARG_PARAM1 = "param1";
-//    private static final String ARG_PARAM2 = "param2";
-//
-//    // TODO: Rename and change types of parameters
-//    private String mParam1;
-//    private String mParam2;
-//
     public SignInFragment() {
         // Required empty public constructor
     }
 
-//    // TODO: Rename and change types and number of parameters
-//    public static SignInFragment newInstance(String param1, String param2) {
-//        SignInFragment fragment = new SignInFragment();
-//        Bundle args = new Bundle();
-//        args.putString(ARG_PARAM1, param1);
-//        args.putString(ARG_PARAM2, param2);
-//        fragment.setArguments(args);
-//        return fragment;
-//    }
-//
-//    @Override
-//    public void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        if (getArguments() != null) {
-//            mParam1 = getArguments().getString(ARG_PARAM1);
-//            mParam2 = getArguments().getString(ARG_PARAM2);
-//        }
-//    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.fragment_sign_in, container, false);
+        View view = inflater.inflate(R.layout.fragment_sign_in, container, false);
         mEmail = view.findViewById(R.id.login_email);
         mPassword = view.findViewById(R.id.login_password);
-        mloginBtn = view.findViewById(R.id.login_button);
-        mAuth = FirebaseAuth.getInstance();
-        mDialog = new ProgressDialog(getContext());
-        mDialog.setTitle("Logging In");
+        mLoginBtn = view.findViewById(R.id.login_button);
+        mAuth=FirebaseAuth.getInstance();
+        mDialog=new ProgressDialog(getContext());
+        mDialog.setTitle("Logging in");
         mDialog.setMessage("Please wait while logging in");
-
-        mloginBtn.setOnClickListener(new View.OnClickListener() {
+        mLoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String email = mEmail.getText().toString();
@@ -109,6 +81,7 @@ public class SignInFragment extends Fragment {
                 }
             }
         });
-        return view;
+        return  view;
+
     }
 }

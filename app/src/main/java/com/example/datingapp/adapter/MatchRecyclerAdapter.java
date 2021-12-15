@@ -29,7 +29,7 @@ public class MatchRecyclerAdapter extends RecyclerView.Adapter<MatchRecyclerAdap
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.single_match_user,parent,false);
+        View view = LayoutInflater.from(context).inflate(R.layout.single_match_user_item,parent,false);
         return new ViewHolder(view);
     }
 

@@ -38,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
         mTabs.setupWithViewPager(mViewPager);
 
         mTabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 if(tab.getPosition()==0){

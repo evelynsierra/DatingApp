@@ -24,7 +24,6 @@ public class viewPagerAdapter extends FragmentStatePagerAdapter {
     }
 
     @NonNull
-    @org.jetbrains.annotations.NotNull
     @Override
     public Fragment getItem(int position) {
 

@@ -13,36 +13,30 @@ import java.util.List;
 
 public class HomeViewPagerAdapter extends FragmentStatePagerAdapter {
 
-    List<Fragment> fragmentList = new ArrayList<>();
-    List<String> mTitleList =  new ArrayList<>();
-
-    //membuat pergantian halaman fragment, sign in dan sign up
-    public HomeViewPagerAdapter(@NonNull @org.jetbrains.annotations.NotNull FragmentManager fm) {
+    List<Fragment> fragmentList=new ArrayList<>();
+    List<String> mTitleList=new ArrayList<>();
+    public HomeViewPagerAdapter(@NonNull FragmentManager fm) {
         super(fm);
     }
-
-    public void addFragment(Fragment fragment, String title) {
+    public void addFragment(Fragment fragment,String title){
         fragmentList.add(fragment);
         mTitleList.add(title);
     }
 
     @NonNull
-    @org.jetbrains.annotations.NotNull
     @Override
     public Fragment getItem(int position) {
-
         return fragmentList.get(position);
     }
 
     @Override
     public int getCount() {
-
         return fragmentList.size();
     }
+
     @Nullable
     @Override
-    public CharSequence getPageTitle(int position){
-
+    public CharSequence getPageTitle(int position) {
         return null;
     }
 }

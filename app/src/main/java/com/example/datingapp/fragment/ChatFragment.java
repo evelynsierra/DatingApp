@@ -34,7 +34,6 @@ public class ChatFragment extends Fragment {
     private MatchRecyclerAdapter matchRecyclerAdapter;
     FirebaseAuth mAuth;
     FirebaseFirestore mStore;
-
     public ChatFragment() {
         // Required empty public constructor
     }

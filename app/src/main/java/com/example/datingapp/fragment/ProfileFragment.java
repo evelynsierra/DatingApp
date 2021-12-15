@@ -72,15 +72,6 @@ public class ProfileFragment extends Fragment {
     private StorageReference mStorage;
 
 
-//    // TODO: Rename parameter arguments, choose names that match
-//    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-//    private static final String ARG_PARAM1 = "param1";
-//    private static final String ARG_PARAM2 = "param2";
-//
-//    // TODO: Rename and change types of parameters
-//    private String mParam1;
-//    private String mParam2;
-
     public ProfileFragment() {
         // Required empty public constructor
     }
@@ -251,19 +242,20 @@ public class ProfileFragment extends Fragment {
                     String img_url = task.getResult().getString("img_url");
                     String lang = task.getResult().getString("lang");
                     mDesc.setText(desc);
-                    if(hobby!=null) {
+                    if(hobby!=null){
                         List<String> mList = Arrays.asList(hobby.split("\\s*,\\s*"));
                         mChipList.addAll(mList);
                         displayChipData(mChipList);
                     }
-                    if(lang!=null) {
+                    if(lang!=null){
                         List<String> cList = Arrays.asList(lang.split("\\s*,\\s*"));
                         mLangList.addAll(cList);
                         displayLangData(mLangList);
                     }
-                    if(img_url!=null) {
+                    if(img_url!=null){
                         Glide.with(getContext()).load(img_url).into(mImg);
                     }
+
                 }
             }
         });

@@ -13,13 +13,16 @@ public class CustomViewPager extends ViewPager {
         super(context, attrs);
     }
 
+
     @Override
-    public boolean onInterceptTouchEvent(MotionEvent event){
+    public boolean onInterceptTouchEvent(MotionEvent event) {
+        // Never allow swiping to switch between pages
         return false;
     }
 
     @Override
-    public boolean onTouchEvent(MotionEvent ev) {
+    public boolean onTouchEvent(MotionEvent event) {
+        // Never allow swiping to switch between pages
         return false;
     }
 }

@@ -40,9 +40,9 @@ public class SignUpFragment extends Fragment {
     private EditText mEmail;
     private EditText mPassword;
     private Button mSignUpBtn;
+    private EditText mDob;
     private FirebaseFirestore mStore;
     private int USER_AGE=0;
-    private EditText mDob;
     public SignUpFragment() {
         // Required empty public constructor
     }
@@ -58,8 +58,8 @@ public class SignUpFragment extends Fragment {
         mEmail = view.findViewById(R.id.signup_email);
         mPassword = view.findViewById(R.id.signup_password);
         mSignUpBtn =view.findViewById(R.id.signup_btn);
+        mSignUpBtn =view.findViewById(R.id.signup_btn);
         mStore = FirebaseFirestore.getInstance();
-
         mDob=view.findViewById(R.id.dob);
         Calendar calendar = Calendar.getInstance();
         final int todayYear = calendar.get(Calendar.YEAR);
@@ -81,6 +81,7 @@ public class SignUpFragment extends Fragment {
         mSignUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 String email=mEmail.getText().toString();
                 String password=mPassword.getText().toString();
                 mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -89,6 +90,8 @@ public class SignUpFragment extends Fragment {
                         if(task.isSuccessful()){
                             Map<String,Object> map = new HashMap<>();
                             map.put("name",mName.getText().toString());
+                            map.put("dob",mDob.getText().toString());
+                            map.put("age",USER_AGE);
                             mStore.collection("Users").document(mAuth.getCurrentUser().getUid())
                                     .set(map).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override

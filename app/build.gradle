@@ -53,7 +53,8 @@ dependencies {
     //Swipe view
 //    implementation 'com.mindorks:placeholderview:1.0.3'
 
-    implementation 'com.mindorks:placeholderview:0.7.3'
+    //Swipe View
+    implementation 'com.mindorks:placeholderview:0.7.1'
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
     implementation 'androidx.cardview:cardview:1.0.0'
 }
