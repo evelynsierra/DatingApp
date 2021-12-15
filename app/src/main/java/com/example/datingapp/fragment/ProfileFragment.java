@@ -251,13 +251,19 @@ public class ProfileFragment extends Fragment {
                     String img_url = task.getResult().getString("img_url");
                     String lang = task.getResult().getString("lang");
                     mDesc.setText(desc);
-                    List<String> mList = Arrays.asList(hobby.split("\\s*,\\s*"));
-                    mChipList.addAll(mList);
-                    displayChipData(mChipList);
-                    List<String> cList = Arrays.asList(lang.split("\\s*,\\s*"));
-                    mLangList.addAll(cList);
-                    displayLangData(mLangList);
-                    Glide.with(getContext()).load(img_url).into(mImg);
+                    if(hobby!=null) {
+                        List<String> mList = Arrays.asList(hobby.split("\\s*,\\s*"));
+                        mChipList.addAll(mList);
+                        displayChipData(mChipList);
+                    }
+                    if(lang!=null) {
+                        List<String> cList = Arrays.asList(lang.split("\\s*,\\s*"));
+                        mLangList.addAll(cList);
+                        displayLangData(mLangList);
+                    }
+                    if(img_url!=null) {
+                        Glide.with(getContext()).load(img_url).into(mImg);
+                    }
                 }
             }
         });

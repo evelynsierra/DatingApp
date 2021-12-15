@@ -11,5 +11,6 @@
     <color name="colorAccent">#BC9A5F</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="chipColor">#23374f</color>
+    <color name="colorPrimaryDark">#223C53</color>
 
 </resources>

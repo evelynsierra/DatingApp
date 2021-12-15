@@ -18,7 +18,7 @@
         app:tabBackground="@drawable/tab_select_bg"
         app:tabIconTint="@color/colorWhite" />
 
-    <androidx.viewpager.widget.ViewPager
+    <com.example.datingapp.CustomViewPager
         android:id="@+id/home_view_pager"
         android:layout_width="433dp"
         android:layout_height="760dp"

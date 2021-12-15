@@ -3,6 +3,17 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/DatingApp/app/src/main/res/layout/activity_home.xml" value="0.1" />
+        <entry key="..\:/DatingApp/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/DatingApp/app/src/main/res/layout/fragment_chat.xml" value="0.1" />
+        <entry key="..\:/DatingApp/app/src/main/res/layout/fragment_profile.xml" value="0.1" />
+        <entry key="..\:/DatingApp/app/src/main/res/layout/fragment_sign_in.xml" value="0.1" />
+        <entry key="..\:/DatingApp/app/src/main/res/layout/fragment_sign_up.xml" value="0.1" />
+        <entry key="..\:/DatingApp/app/src/main/res/layout/single_chip_item.xml" value="0.1" />
+        <entry key="..\:/DatingApp/app/src/main/res/layout/single_match_user.xml" value="0.1" />
+        <entry key="..\:/DatingApp/app/src/main/res/layout/tinder_card_view.xml" value="0.1" />
+        <entry key="..\:/DatingApp/app/src/main/res/layout/tinder_swipe_in_msg_view.xml" value="0.1" />
+        <entry key="..\:/DatingApp/app/src/main/res/layout/tinder_swipe_out_msg_view.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/signup_bg.xml" value="0.16396396396396395" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.15" />
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.33" />
