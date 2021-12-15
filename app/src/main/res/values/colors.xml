@@ -3,11 +3,12 @@
     <color name="colorPrimary">#223C53</color>
     <color name="purple_500">#223C53</color>
     <color name="purple_700">#223C53</color>
-    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_200">#BC9A5F</color>
     <color name="teal_700">#FF018786</color>
    <color name="black">#223C53</color>
     <color name="white">#FFFFFFFF</color>
     <color name="colorGolden">#BC9A5F</color>
+    <color name="colorAccent">#BC9A5F</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="chipColor">#23374f</color>
 

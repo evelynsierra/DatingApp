@@ -32,58 +32,32 @@ import java.util.Map;
 // * create an instance of this fragment.
 // */
 public class SignUpFragment extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-//    private static final String ARG_PARAM1 = "param1";
-//    private static final String ARG_PARAM2 = "param2";
-
-//    private String mParam1;
-//    private String mParam2;
     private FirebaseAuth mAuth;
     private EditText mName;
     private EditText mEmail;
     private EditText mPassword;
     private Button mSignUpBtn;
     private FirebaseFirestore mStore;
-
     public SignUpFragment() {
         // Required empty public constructor
     }
 
 
-//    // TODO: Rename and change types and number of parameters
-//    public static SignUpFragment newInstance(String param1, String param2) {
-//        SignUpFragment fragment = new SignUpFragment();
-//        Bundle args = new Bundle();
-//        args.putString(ARG_PARAM1, param1);
-//        args.putString(ARG_PARAM2, param2);
-//        fragment.setArguments(args);
-//        return fragment;
-//    }
-
-//    @Override
-//    public void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        if (getArguments() != null) {
-//            mParam1 = getArguments().getString(ARG_PARAM1);
-//            mParam2 = getArguments().getString(ARG_PARAM2);
-//        }
-//    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_sign_up, container, false);
+        final View view = inflater.inflate(R.layout.fragment_sign_up, container, false);
         mAuth = FirebaseAuth.getInstance();
         mName = view.findViewById(R.id.signup_name);
         mEmail = view.findViewById(R.id.signup_email);
         mPassword = view.findViewById(R.id.signup_password);
-        mSignUpBtn = view.findViewById(R.id.signup_btn);
+        mSignUpBtn =view.findViewById(R.id.signup_btn);
         mStore = FirebaseFirestore.getInstance();
 
-        mSignUpBtn.setOnClickListener(new View.OnClickListener() { // saat diklik, tulis apa yang akan terjadi
+
+
+        mSignUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String email=mEmail.getText().toString();
@@ -117,6 +91,5 @@ public class SignUpFragment extends Fragment {
         });
 
         return view;
-
     }
 }

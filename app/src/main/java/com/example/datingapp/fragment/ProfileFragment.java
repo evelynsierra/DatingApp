@@ -117,7 +117,6 @@ public class ProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_profile, container, false);
-
         mImg = view.findViewById(R.id.pro_image);
         mLang = view.findViewById(R.id.pro_lang);
         mHobby = view.findViewById(R.id.pro_hobby);
@@ -127,16 +126,14 @@ public class ProfileFragment extends Fragment {
         mSaveProfile = view.findViewById(R.id.save_pro);
         mAuth=FirebaseAuth.getInstance();
         mStore=FirebaseFirestore.getInstance();
-        mStorage= FirebaseStorage.getInstance().getReference();
+        mStorage=FirebaseStorage.getInstance().getReference();
         mChipList = new ArrayList<>();
         mLangList = new ArrayList<>();
 
-        //ambil data profil
+        //get profiledata
         getProfileData();
 
         displayChipData(mChipList);
-
-        //display image
         mImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -145,12 +142,11 @@ public class ProfileFragment extends Fragment {
                 startActivityForResult(photoPickerIntent, RESULT_LOAD_IMG);
             }
         });
-
-        mHobby.setOnEditorActionListener(new TextView.OnEditorActionListener() { //saat mengetikkan hobby langsung muncul di chiplist
+        mHobby.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
-            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
-                if(actionId == EditorInfo.IME_ACTION_GO){
-                    mChipList.add(mHobby.getText().toString()); //penambahan chip data ke list
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if(actionId== EditorInfo.IME_ACTION_GO){
+                    mChipList.add(mHobby.getText().toString());
                     displayChipData(mChipList);
                     mHobby.setText("");
                     return true;
@@ -170,18 +166,16 @@ public class ProfileFragment extends Fragment {
                 return false;
             }
         });
-
         //logout
-        Button btn = view.findViewById(R.id.logout);
+        Button btn=view.findViewById(R.id.logout);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FirebaseAuth.getInstance().signOut(); //menekan sign out
+                FirebaseAuth.getInstance().signOut();
                 startActivity(new Intent(getContext(), MainActivity.class));
-                getActivity().finish(); //selesaikan activity dengan kembali ke main activity
+                getActivity().finish();
             }
         });
-
         //save data
         mSaveProfile.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
@@ -241,10 +235,11 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+
+
         return view;
     }
 
-    //mengambil data profil
     private void getProfileData() {
         mStore.collection("Users").document(mAuth.getCurrentUser().getUid())
                 .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -268,37 +263,19 @@ public class ProfileFragment extends Fragment {
         });
     }
 
-    //menampilkan foto
+    @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             final Uri imageUri = data.getData();
             url =imageUri;
-            Glide.with(getContext()).load(imageUri).into(mImg); //pakai library Glide agar lebih mudah loading display image atau video
+            Glide.with(getContext()).load(imageUri).into(mImg);
 
         }else {
             Toast.makeText(getContext(), "You haven't picked Image",Toast.LENGTH_LONG).show();
         }
     }
 
-    // display chip data
-    private void displayChipData(List<String> mChipList) { //menampilkan chip list dalam bentuk bubble (background yang telah dibuat)
-        mChipGroup.removeAllViews(); //saat memasukkan data yang baru, tidak akan ada duplikat
-        for(String s: mChipList){
-            Chip chip = (Chip) this.getLayoutInflater().inflate(R.layout.single_chip_item,null,false);
-            chip.setText(s);
-            chip.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mChipGroup.removeView(v); //untuk menghilangkan chip data
-                    Chip c= (Chip) v;
-                    mChipList.remove(c.getText().toString());
-                }
-            });
-            mChipGroup.addView(chip);
-        }
-
-    }
-    //display language data
     private void displayLangData(final List<String> mLangList) {
         mLangChipGroup.removeAllViews();
         for(String s: mLangList){
@@ -314,5 +291,23 @@ public class ProfileFragment extends Fragment {
             });
             mLangChipGroup.addView(chip);
         }
+    }
+
+    private void displayChipData(final List<String> mChipList) {
+        mChipGroup.removeAllViews();
+        for(String s: mChipList){
+            Chip chip = (Chip) this.getLayoutInflater().inflate(R.layout.single_chip_item,null,false);
+            chip.setText(s);
+            chip.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mChipGroup.removeView(v);
+                    Chip c= (Chip) v;
+                    mChipList.remove(c.getText().toString());
+                }
+            });
+            mChipGroup.addView(chip);
+        }
+
     }
 }
