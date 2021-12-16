@@ -61,6 +61,7 @@ public class SignUpFragment extends Fragment {
         mSignUpBtn =view.findViewById(R.id.signup_btn);
         mStore = FirebaseFirestore.getInstance();
         mDob=view.findViewById(R.id.dob);
+
         Calendar calendar = Calendar.getInstance();
         final int todayYear = calendar.get(Calendar.YEAR);
         final int todayMonth = calendar.get(Calendar.MONTH);

@@ -28,7 +28,6 @@ import java.util.List;
  * A simple {@link Fragment} subclass.
  */
 public class ChatFragment extends Fragment {
-
     private RecyclerView mMatchRecyclerView;
     private List<Match> mMatchList;
     private MatchRecyclerAdapter matchRecyclerAdapter;

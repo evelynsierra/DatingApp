@@ -3,11 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragment.ChatFragment"
     android:background="@color/colorPrimary">
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/match_recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/match_recycler"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

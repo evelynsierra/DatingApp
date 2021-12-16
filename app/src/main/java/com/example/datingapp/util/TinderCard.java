@@ -21,63 +21,64 @@ import com.mindorks.placeholderview.annotations.swipe.SwipeOutState;
 @Layout(R.layout.tinder_card_view)
 public class TinderCard {
 
-        @View(R.id.profileImageView)
-        private ImageView profileImageView;
+    @View(R.id.profileImageView)
+    private ImageView profileImageView;
 
-        @View(R.id.nameAgeTxt)
-        private TextView nameAgeTxt;
+    @View(R.id.nameAgeTxt)
+    private TextView nameAgeTxt;
 
-        @View(R.id.locationNameTxt)
-        private TextView locationNameTxt;
+    @View(R.id.locationNameTxt)
+    private TextView locationNameTxt;
 
-        private Profile mProfile;
-        private Context mContext;
-        private SwipePlaceHolderView mSwipeView;
-        private SelectedListener selectedListener;
+    private Profile mProfile;
+    private Context mContext;
+    private SwipePlaceHolderView mSwipeView;
+    private SelectedListener selectedListener;
+    public TinderCard(Context context, Profile profile, SwipePlaceHolderView swipeView,SelectedListener selectedListener) {
+        mContext = context;
+        mProfile = profile;
+        mSwipeView = swipeView;
+        this.selectedListener = selectedListener;
+    }
 
-        public TinderCard(Context context, Profile profile, SwipePlaceHolderView swipeView, SelectedListener selectedListener) {
-            mContext = context;
-            mProfile = profile;
-            mSwipeView = swipeView;
-            this.selectedListener = this.selectedListener;
-        }
+    @Resolve
+    private void onResolved(){
+        Log.i("TAG", "onResolved: "+mProfile.getImg_url());
+        Glide.with(mContext).load(mProfile.getImg_url()).into(profileImageView);
+        nameAgeTxt.setText(mProfile.getName() + ", " + mProfile.getAge());
+        //locationNameTxt.setText(mProfile.getLocation());
+    }
 
-        @Resolve
-        private void onResolved(){
-            Log.i("TAG", "onResolved: "+mProfile.getImageUrl());
-            Glide.with(mContext).load(mProfile.getImageUrl()).into(profileImageView);
-            nameAgeTxt.setText(mProfile.getName() + ", " + mProfile.getAge());
-//            locationNameTxt.setText(mProfile.getLocation());
-        }
+    @SwipeOut
+    private void onSwipedOut(){
+        Log.d("EVENT", "onSwipedOut");
 
-        @SwipeOut
-        private void onSwipedOut(){
-            Log.d("EVENT", "onSwipedOut");
-            mSwipeView.addView(this);
-        }
+    }
 
-        @SwipeCancelState
-        private void onSwipeCancelState(){
-            Log.d("EVENT", "onSwipeCancelState");
-        }
+    @SwipeCancelState
+    private void onSwipeCancelState(){
+        Log.d("EVENT", "onSwipeCancelState");
+    }
 
-        @SwipeIn
-        private void onSwipeIn(){
-            selectedListener.setSwipedDocumentId(mProfile.profileId,mProfile.getName());
-            Log.d("EVENT", "onSwipedIn");
-        }
+    @SwipeIn
+    private void onSwipeIn(){
+        selectedListener.setSwipedDocumentId(mProfile.profileId,mProfile.getName());
+        Log.d("EVENT", "onSwipedIn");
+    }
 
-        @SwipeInState
-        private void onSwipeInState(){
-            Log.d("EVENT", "onSwipeInState");
-        }
+    @SwipeInState
+    private void onSwipeInState(){
+        Log.d("EVENT", "onSwipeInState");
+    }
 
-        @SwipeOutState
-        private void onSwipeOutState(){
-            Log.d("EVENT", "onSwipeOutState");
-        }
+    @SwipeOutState
+    private void onSwipeOutState(){
+        Log.d("EVENT", "onSwipeOutState");
+    }
 
-        public interface  SelectedListener {
-            public void setSwipedDocumentId(String docId,String name);
-        }
+    public interface  SelectedListener {
+        public void setSwipedDocumentId(String docId,String name);
+    }
+
+
 }

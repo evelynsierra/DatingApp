@@ -49,16 +49,16 @@
                 android:id="@+id/textInputLayout5"
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
-                android:hint="Password"
                 app:layout_constraintEnd_toEndOf="parent"
+                android:hint="Password"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textInputLayout4">
 
                 <EditText
                     android:id="@+id/signup_password"
+                    android:inputType="textPassword"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textPassword" />
+                    android:layout_height="wrap_content" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
@@ -67,39 +67,26 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:background="@drawable/login_btn_bg"
-                android:text="Sign Up"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                app:backgroundTint="#BD9B5B"
-                app:layout_constraintEnd_toEndOf="@+id/textInputLayout6"
+                android:backgroundTint="@color/colorGolden"
+                android:text="Register"
+                android:textColor="@color/colorWhite"
+                app:layout_constraintEnd_toEndOf="@+id/dob"
                 app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="@+id/textInputLayout6"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayout6" />
+                app:layout_constraintStart_toStartOf="@+id/dob"
+                app:layout_constraintTop_toBottomOf="@+id/dob" />
 
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayout6"
+            <EditText
+                android:id="@+id/dob"
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayout5">
-
-                <EditText
-                    android:id="@+id/dob"
-                    android:layout_width="250dp"
-                    android:layout_height="wrap_content"
-
-                    android:editable="false"
-                    android:ems="10"
-                    android:hint="D.O.B"
-                    android:inputType="date"
-                    app:layout_constraintEnd_toEndOf="@+id/textInputLayout5"
-                    app:layout_constraintStart_toStartOf="@+id/textInputLayout5"
-                    app:layout_constraintTop_toBottomOf="@+id/textInputLayout5" />
-            </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginTop="12dp"
+                android:ems="10"
+                android:editable="false"
+                android:inputType="date"
+                android:hint="D.O.B"
+                app:layout_constraintEnd_toEndOf="@+id/textInputLayout5"
+                app:layout_constraintStart_toStartOf="@+id/textInputLayout5"
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayout5" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 

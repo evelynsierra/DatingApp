@@ -7,11 +7,17 @@ public class Profile extends ProfileId{
 
     private String name;
 
-    private String imageUrl;
+    private String img_url;
 
     private Integer age;
 
-//    private String location;
+    public String getImg_url() {
+        return img_url;
+    }
+
+    public void setImg_url(String img_url) {
+        this.img_url = img_url;
+    }
 
     public Profile() {
     }
@@ -25,15 +31,6 @@ public class Profile extends ProfileId{
     }
 
 
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
-
     public Integer getAge() {
         return age;
     }
@@ -41,13 +38,4 @@ public class Profile extends ProfileId{
     public void setAge(Integer age) {
         this.age = age;
     }
-
-
-//    public String getLocation() {
-//        return location;
-//    }
-//
-//    public void setLocation(String location) {
-//        this.location = location;
-//    }
 }

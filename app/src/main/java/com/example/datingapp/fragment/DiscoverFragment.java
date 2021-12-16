@@ -36,7 +36,6 @@ import java.util.Map;
 // * create an instance of this fragment.
 // */
 public class DiscoverFragment extends Fragment {
-
     private SwipePlaceHolderView mSwipeView;
     private Context mContext;
     private FirebaseFirestore mStore;

@@ -1,6 +1,8 @@
 package com.example.datingapp.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.datingapp.ChatActivity;
 import com.example.datingapp.R;
 
 import com.example.datingapp.util.Match;
@@ -34,9 +37,17 @@ public class MatchRecyclerAdapter extends RecyclerView.Adapter<MatchRecyclerAdap
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") final int position) {
         holder.mName.setText(mMatchList.get(position).getName());
         Glide.with(context).load(mMatchList.get(position).getImg_url()).into(holder.mImg);
+        holder.view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(context, ChatActivity.class);
+                intent.putExtra("doc_id",mMatchList.get(position).getUser_id());
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -47,8 +58,10 @@ public class MatchRecyclerAdapter extends RecyclerView.Adapter<MatchRecyclerAdap
     public class ViewHolder extends RecyclerView.ViewHolder{
         TextView mName;
         CircleImageView mImg;
+        View view;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            view = itemView;
             mName = itemView.findViewById(R.id.match_name);
             mImg = itemView.findViewById(R.id.match_img);
         }

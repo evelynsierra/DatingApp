@@ -10,15 +10,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class viewPagerAdapter extends FragmentStatePagerAdapter {
-    List<Fragment> fragmentList = new ArrayList<>();
-    List<String> mTitleList =  new ArrayList<>();
-
-    //membuat pergantian halaman fragment, sign in dan sign up
-    public viewPagerAdapter(@NonNull @org.jetbrains.annotations.NotNull FragmentManager fm) {
+    List<Fragment> fragmentList=new ArrayList<>();
+    List<String> mTitleList=new ArrayList<>();
+    public viewPagerAdapter(@NonNull FragmentManager fm) {
         super(fm);
     }
-
-    public void addFragment(Fragment fragment, String title) {
+    public void addFragment(Fragment fragment,String title){
         fragmentList.add(fragment);
         mTitleList.add(title);
     }
@@ -26,20 +23,17 @@ public class viewPagerAdapter extends FragmentStatePagerAdapter {
     @NonNull
     @Override
     public Fragment getItem(int position) {
-
         return fragmentList.get(position);
     }
 
     @Override
     public int getCount() {
-
         return fragmentList.size();
     }
+
     @Nullable
     @Override
-    public CharSequence getPageTitle(int position){
-
+    public CharSequence getPageTitle(int position) {
         return mTitleList.get(position);
     }
-
 }
